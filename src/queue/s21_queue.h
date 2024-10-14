@@ -5,7 +5,7 @@
 
 namespace s21 {
 template <typename T, typename C = list<T>>
-class queue {
+class queue final {
   C queue_;
 
  public:

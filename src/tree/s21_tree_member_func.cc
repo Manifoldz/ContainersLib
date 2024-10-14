@@ -25,7 +25,7 @@ tree<Key, T, Compare>::tree(std::initializer_list<value_type> const& items)
     for (const auto& pair : items) {
       Insert(pair);
     }
-  } catch (...) {
+  } catch (const std::bad_alloc&) {
     clear();
     throw;
   }
@@ -39,7 +39,7 @@ tree<Key, T, Compare>::tree(const tree& m)
       fake_node_ = AllocBaseNode();
       Node* child = fake_node_->CopyChild(m.fake_node_->left, Dir::kLeft);
       TreeCopy(child, m.fake_node_->left, m.fake_node_, m.begin_);
-    } catch (...) {
+    } catch (const std::bad_alloc&) {
       clear();
       throw;
     }

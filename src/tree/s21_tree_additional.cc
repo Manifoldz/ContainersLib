@@ -63,7 +63,7 @@ tree<Key, T, Compare>::BaseNode::MakeChild(const_reference value,
       new_node->left = new_node->right = right;
       right = new_node;
     }
-  } catch (...) {
+  } catch (const std::bad_alloc&) {
     ::operator delete(new_node);
     throw;
   }
@@ -85,7 +85,7 @@ tree<Key, T, Compare>::BaseNode::MakeChild(value_type&& value, const Dir side) {
       new_node->left = new_node->right = right;
       right = new_node;
     }
-  } catch (...) {
+  } catch (const std::bad_alloc&) {
     ::operator delete(new_node);
     throw;
   }

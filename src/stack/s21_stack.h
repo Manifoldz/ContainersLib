@@ -5,7 +5,7 @@
 
 namespace s21 {
 template <typename T, typename C = list<T>>
-class stack {
+class stack final {
   C stack_;
 
  public:

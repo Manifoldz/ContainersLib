@@ -15,7 +15,7 @@ set<Key, Compare>::set(std::initializer_list<value_type> const &items) {
       std::pair<value_type, stub> pair(key, nullptr);
       Insert(pair);
     }
-  } catch (...) {
+  } catch (const std::bad_alloc &) {
     clear();
     throw;
   }

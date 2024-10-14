@@ -263,7 +263,7 @@ typename list<T>::iterator list<T>::insert(iterator pos,
   Node* node = static_cast<Node*>(::operator new(sizeof(Node)));
   try {
     ::new (&node->data_) T(value);
-  } catch (...) {
+  } catch (const std::bad_alloc&) {
     ::operator delete(node);
     throw;
   }
@@ -275,7 +275,7 @@ typename list<T>::iterator list<T>::insert(iterator pos, T&& value) {
   Node* node = static_cast<Node*>(::operator new(sizeof(Node)));
   try {
     ::new (&node->data_) T(std::move(value));
-  } catch (...) {
+  } catch (const std::bad_alloc&) {
     ::operator delete(node);
     throw;
   }
@@ -434,7 +434,7 @@ typename list<T>::iterator list<T>::merge_sublists(iterator lhs, iterator rhs) {
   Node* current_tail = fake_node;
 
   while (lhs != fake_node && rhs != fake_node) {
-    Node* node_to_add;
+    Node* node_to_add = nullptr;
     if (*lhs < *rhs) {
       node_to_add = lhs.get_node();
       ++lhs;
@@ -498,7 +498,7 @@ typename list<T>::iterator list<T>::insert_many(const_iterator pos,
 
   try {
     (insert(it_pos, std::forward<Args>(args)), ..., ++insert_count);
-  } catch (...) {
+  } catch (const std::bad_alloc&) {
     iterator del_pos = it_pos;
     while (insert_count--) {
       erase(--del_pos);

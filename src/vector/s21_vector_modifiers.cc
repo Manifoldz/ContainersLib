@@ -30,7 +30,7 @@ T* vector<T>::insert(iterator pos, const_reference value) {
       } else {
         std::uninitialized_copy(pos, vb_.extra, return_pos + 1);
       }
-    } catch (...) {
+    } catch (const std::bad_alloc&) {
       DestroyerElements(tmp, return_pos + 1);
       throw;
     }
@@ -71,7 +71,7 @@ T* vector<T>::insert(iterator pos, T&& value) {
       } else {
         std::uninitialized_copy(pos, vb_.extra, return_pos + 1);
       }
-    } catch (...) {
+    } catch (const std::bad_alloc&) {
       DestroyerElements(tmp, return_pos + 1);
       throw;
     }
@@ -116,7 +116,7 @@ void vector<T>::push_back(const_reference value) {
       } else {
         std::uninitialized_copy(vb_.first, vb_.extra, new_vb.first);
       }
-    } catch (...) {
+    } catch (const std::bad_alloc&) {
       (new_vb.first + size())->~value_type();
       throw;
     }

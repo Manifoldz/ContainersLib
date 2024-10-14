@@ -8,7 +8,7 @@
 
 namespace s21 {
 template <typename T>
-class list {
+class list final {
   struct BaseNode {
     BaseNode *prev_;
     BaseNode *next_;
@@ -27,7 +27,7 @@ class list {
   using const_reference = const T &;
   using size_type = std::size_t;
 
-  class ListIterator {
+  class ListIterator final {
     Node *ptr_;
 
    public:
@@ -46,7 +46,7 @@ class list {
     Node *get_node() const;
   };
 
-  class ListConstIterator {
+  class ListConstIterator final {
     const Node *ptr_;
 
    public:

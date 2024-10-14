@@ -15,7 +15,7 @@ multiset<Key, Compare>::Insert(
       fake_node_->MakeChild(value, Dir::kLeft);
       begin_ = fake_node_->left;
       fake_node_->left->red = false;
-    } catch (...) {
+    } catch (const std::bad_alloc&) {
       delete (fake_node_);
       fake_node_ = nullptr;
     }
@@ -46,7 +46,7 @@ multiset<Key, Compare>::Insert(
       fake_node_->MakeChild(std::move(value), Dir::kLeft);
       begin_ = fake_node_->left;
       fake_node_->left->red = false;
-    } catch (...) {
+    } catch (const std::bad_alloc&) {
       delete (fake_node_);
       fake_node_ = nullptr;
     }

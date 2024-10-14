@@ -16,7 +16,7 @@ s21::multiset<Key, Compare>::multiset(
       std::pair<value_type, stub> pair(key, nullptr);
       Insert(pair);
     }
-  } catch (...) {
+  } catch (const std::bad_alloc &) {
     clear();
     throw;
   }

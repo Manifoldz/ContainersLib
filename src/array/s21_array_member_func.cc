@@ -16,7 +16,7 @@ array<T, N>::array(std::initializer_list<value_type> const &items) : size_(N) {
     data_[i] = items.begin()[i];
   }
   for (size_t i = s; i < N; ++i) {
-    data_[i] = 0;
+    data_[i] = T();
   }
 }
 
